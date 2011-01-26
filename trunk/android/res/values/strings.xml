@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Welcome to SMS Tether. After the SMS Tether software is running on your Mac, enter its local IP address in the field below to begin.</string>
+    <string name="app_name">SMS Tether</string>
+</resources>

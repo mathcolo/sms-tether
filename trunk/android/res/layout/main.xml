@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/hello"></TextView>
+
+<TableRow><TextView android:layout_width="100px" android:text="IP/hostname:" android:layout_height="50px"></TextView></TableRow>
+
+<TableRow><EditText android:id="@+id/hostField" android:layout_width="300px" android:layout_height="75px" android:text=""></EditText><Button android:text="Connect" android:layout_width="150px" android:layout_height="75px" android:id="@+id/connectBtn"></Button></TableRow>
+
+</TableLayout>
