@@ -43,7 +43,7 @@
     int row;
     row = [tableView selectedRow];
 
-	[textView setString:@""];
+	NSString *appender = @"";
 	
 	NSLog(@"%@", [manager.conversations description]);
 	Conversation *c = [manager.conversations objectAtIndex:row];
@@ -59,7 +59,6 @@
 		//NSLog(@"tableViewDelegate: content = %@", content);
 		BOOL direction = arrayMessage.direction;
 
-		NSString *currentContent = [textView string];
 		NSString *header;
 		
 		if(direction)
@@ -76,9 +75,9 @@
 		[formatter setFormatterBehavior:NSDateFormatterBehavior10_4]; //Not really sure about the 10.4 behavior...
 		[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 		NSString *date = [formatter stringFromDate:arrayMessage.stamp];
-		NSString *newString = [currentContent stringByAppendingString:[NSString stringWithFormat:@"\n<%@> %@: %@", date, header, content]];
-		[textView setString:newString];
+		appender = [appender stringByAppendingString:[NSString stringWithFormat:@"\n<%@> %@: %@", date, header, content]];
 	}
+	[textView setString:appender];
 }
 
 @end
