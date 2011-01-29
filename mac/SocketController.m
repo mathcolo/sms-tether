@@ -144,9 +144,32 @@
 -(void)sendMessageOverSocket:(Message *)message withRecipient:(NSString *)recipient {
 
 	NSString *content = [message content];
-	NSString *TCPString = [NSString stringWithFormat:@"SEND-L9gyYX-%@-L9gyYX-%@\r\n", recipient, content];
+
 	//Sending message over socket to first client connected (capacity is still 1)
-	[[connectedSockets objectAtIndex:0] writeData:[TCPString dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1];
+	
+	//Assuming message limit of 3 (3 messages at 160 characters = 480 chars)
+	
+	NSString *firstMessage = nil;
+	NSString *secondMessage = nil;
+	NSString *thirdMessage = nil;
+	
+	if([content length] <= 160){
+		firstMessage = content;
+	}
+	else if([content length] <= 320){
+		firstMessage = [content substringWithRange:NSMakeRange(0, 160)];
+		secondMessage = [content substringWithRange:NSMakeRange(160, [content length]-160)];
+	}
+	else if([content length] <= 480)
+	{
+		firstMessage = [content substringWithRange:NSMakeRange(0, 160)];
+		secondMessage = [content substringWithRange:NSMakeRange(160, 160)];
+		thirdMessage = [content substringWithRange:NSMakeRange(320, [content length]-320)];
+	}
+	
+	if(firstMessage != nil)[[connectedSockets objectAtIndex:0] writeData:[[NSString stringWithFormat:@"SEND-L9gyYX-%@-L9gyYX-%@\r\n", recipient, firstMessage] dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1];
+	if(secondMessage != nil)[[connectedSockets objectAtIndex:0] writeData:[[NSString stringWithFormat:@"SEND-L9gyYX-%@-L9gyYX-%@\r\n", recipient, secondMessage] dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1];
+	if(thirdMessage != nil)[[connectedSockets objectAtIndex:0] writeData:[[NSString stringWithFormat:@"SEND-L9gyYX-%@-L9gyYX-%@\r\n", recipient, thirdMessage] dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1];
 	
 }
 

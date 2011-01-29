@@ -26,18 +26,18 @@
 @implementation TextEntryDelegate
 
 -(void)awakeFromNib {
-	[counter setStringValue:@"0/160"];
+	[counter setStringValue:@"0/480"];
 }
 
 -(void)controlTextDidChange:(NSNotification *)n {
 	
 	NSUInteger inputFieldLength = [[inputField stringValue] length];
-	if(inputFieldLength > 160)
+	if(inputFieldLength > 480)
 	{
 		[inputField setStringValue:oldText];
 	}
 	
-	[counter setStringValue:[NSString stringWithFormat:@"%d/160",[[inputField stringValue] length]]];
+	[counter setStringValue:[NSString stringWithFormat:@"%d/480",[[inputField stringValue] length]]];
 
 	oldText = [inputField stringValue];
 }
