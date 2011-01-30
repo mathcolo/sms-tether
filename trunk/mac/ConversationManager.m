@@ -120,4 +120,13 @@
 	
 }
 
+-(IBAction)removeSelected:(id)sender {
+
+	NSUInteger selected = [tableView selectedRow];
+	[conversations removeObjectAtIndex:selected];
+	[tableView reloadData];
+	[[tableView delegate] tableViewSelectionDidChange:nil];
+	
+}
+
 @end
