@@ -42,10 +42,16 @@
 {
     int row;
     row = [tableView selectedRow];
+	
+	if(row == -1)
+	{
+		[textView setString:@""];
+		return;
+	}
 
 	NSString *appender = @"";
 	
-	NSLog(@"%@", [manager.conversations description]);
+	//NSLog(@"%@", [manager.conversations description]);
 	Conversation *c = [manager.conversations objectAtIndex:row];
 
 	NSMutableArray *messages = c.messages;

@@ -37,6 +37,7 @@
 -(void)processMessage:(Message*)message from:(NSString*)number;
 
 -(IBAction)initSend:(id)sender;
+-(IBAction)removeSelected:(id)sender;
 
 -(void)saveMessageData;
 

@@ -12,9 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="57"/>
 			<integer value="557"/>
-			<integer value="667"/>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -686,6 +685,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>309D34B2-EACA-440E-BDDC-991E25435D2C</string>
+							<string>A1970429-33DA-4D76-B8C6-15D3C7731B8D</string>
 							<string>F0662982-FCEE-4932-A461-04A607297836</string>
 							<string>NSToolbarFlexibleSpaceItem</string>
 						</object>
@@ -702,6 +702,28 @@
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSNetwork</string>
+								</object>
+								<nil key="NSToolbarItemTarget"/>
+								<nil key="NSToolbarItemAction"/>
+								<string key="NSToolbarItemMinSize">{0, 0}</string>
+								<string key="NSToolbarItemMaxSize">{0, 0}</string>
+								<bool key="NSToolbarItemEnabled">YES</bool>
+								<bool key="NSToolbarItemAutovalidates">YES</bool>
+								<int key="NSToolbarItemTag">-1</int>
+								<bool key="NSToolbarIsUserRemovable">YES</bool>
+								<int key="NSToolbarItemVisibilityPriority">0</int>
+							</object>
+							<object class="NSToolbarItem" id="847068278">
+								<object class="NSMutableString" key="NSToolbarItemIdentifier">
+									<characters key="NS.bytes">A1970429-33DA-4D76-B8C6-15D3C7731B8D</characters>
+								</object>
+								<string key="NSToolbarItemLabel">Remove</string>
+								<string key="NSToolbarItemPaletteLabel">Remove</string>
+								<string key="NSToolbarItemToolTip"/>
+								<nil key="NSToolbarItemView"/>
+								<object class="NSCustomResource" key="NSToolbarItemImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSRemoveTemplate</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -769,10 +791,12 @@
 						<reference ref="492029100"/>
 						<reference ref="128573031"/>
 						<reference ref="426075071"/>
+						<reference ref="847068278"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="492029100"/>
+						<reference ref="847068278"/>
 						<reference ref="426075071"/>
 						<reference ref="128573031"/>
 					</object>
@@ -1272,6 +1296,7 @@
 							</object>
 							<string key="NSFrame">{{20, 59}, {135, 135}}</string>
 							<reference key="NSSuperview" ref="794416284"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="431403105">
 								<int key="NSCellFlags">130560</int>
@@ -1292,6 +1317,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{21, 35}, {140, 30}}</string>
 							<reference key="NSSuperview" ref="794416284"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="282683481">
 								<int key="NSCellFlags">68288064</int>
@@ -1312,6 +1338,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{21, 13}, {140, 22}}</string>
 							<reference key="NSSuperview" ref="794416284"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="372607887">
 								<int key="NSCellFlags">68288064</int>
@@ -1332,6 +1359,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{172, 75}, {288, 119}}</string>
 							<reference key="NSSuperview" ref="794416284"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="730224803">
 								<int key="NSCellFlags">67239424</int>
@@ -1353,6 +1381,7 @@ eSBEZXNpZ25zCgpNQUF0dGFjaGVkV2luZG93IGNvZGUgYnkgTWF0dCBHZW1tZWxsA</string>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{175, 90}, {299, 19}}</string>
 							<reference key="NSSuperview" ref="794416284"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="675850297">
 								<int key="NSCellFlags">-2080244224</int>
@@ -1371,6 +1400,7 @@ eSBEZXNpZ25zCgpNQUF0dGFjaGVkV2luZG93IGNvZGUgYnkgTWF0dCBHZW1tZWxsA</string>
 					</object>
 					<string key="NSFrameSize">{499, 214}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -2044,6 +2074,14 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					</object>
 					<int key="connectionID">700</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeSelected:</string>
+						<reference key="source" ref="604066413"/>
+						<reference key="destination" ref="847068278"/>
+					</object>
+					<int key="connectionID">705</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -2652,6 +2690,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 							<reference ref="128573031"/>
 							<reference ref="426075071"/>
 							<reference ref="492029100"/>
+							<reference ref="847068278"/>
 						</object>
 						<reference key="parent" ref="858654876"/>
 					</object>
@@ -2948,6 +2987,11 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 						<reference key="object" ref="780617237"/>
 						<reference key="parent" ref="896330487"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">704</int>
+						<reference key="object" ref="847068278"/>
+						<reference key="parent" ref="825231492"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3169,6 +3213,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					<string>694.IBPluginDependency</string>
 					<string>695.IBPluginDependency</string>
 					<string>696.IBPluginDependency</string>
+					<string>704.IBPluginDependency</string>
 					<string>92.IBPluginDependency</string>
 					<string>92.ImportedFromIB2</string>
 				</object>
@@ -3309,9 +3354,9 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{116, 294}, {535, 406}}</string>
+					<string>{{395, 184}, {535, 406}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{116, 294}, {535, 406}}</string>
+					<string>{{395, 184}, {535, 406}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3334,7 +3379,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{22, 745}, {617, 0}}</string>
+					<string>{{354, 590}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3360,9 +3405,9 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{104, 468}, {499, 214}}</string>
+					<string>{{309, 260}, {499, 214}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{104, 468}, {499, 214}}</string>
+					<string>{{309, 260}, {499, 214}}</string>
 					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3410,6 +3455,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 				</object>
 			</object>
@@ -3429,7 +3475,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">701</int>
+			<int key="maxID">705</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3457,14 +3503,35 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 					<string key="className">ConversationManager</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">initSend:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>initSend:</string>
+							<string>removeSelected:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">initSend:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">initSend:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>initSend:</string>
+							<string>removeSelected:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">initSend:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeSelected:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -4342,6 +4409,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
 				<string>NSNetwork</string>
+				<string>NSRemoveTemplate</string>
 				<string>NSUser</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -4350,6 +4418,7 @@ IEhBVkUgQkVFTiBBRFZJU0VEIE9GIFRIRSBQT1NTSUJJTElUWSBPRiBTVUNIIERBTUFHRS4</string>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{32, 32}</string>
+				<string>{8, 8}</string>
 				<string>{32, 32}</string>
 			</object>
 		</object>
