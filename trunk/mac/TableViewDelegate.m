@@ -58,6 +58,8 @@
 	Contact *contact = c.contact;
 	NSString *number = contact.number;
 
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	
 	for(int i = 0; i < [messages count]; i++)
 	{
 		Message *arrayMessage = [messages objectAtIndex:i];
@@ -67,24 +69,19 @@
 
 		NSString *header;
 		
-		if(direction)
-		{
-			header = @"Me";
-		}
-		else {
-			header = number;
-		}
+		if(direction)header = @"Me";
+		else header = number;
 		
 		//NSLog(@"tableViewDelegate selectionDidChange: header = %@", header);
 		
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 		[formatter setFormatterBehavior:NSDateFormatterBehavior10_4]; //Not really sure about the 10.4 behavior...
 		[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 		NSString *date = [formatter stringFromDate:arrayMessage.stamp];
 		appender = [appender stringByAppendingString:[NSString stringWithFormat:@"\n<%@> %@: %@", date, header, content]];
-		[formatter release];
+		
 	}
 	[textView setString:appender];
+	[formatter release];
 }
 
 @end
