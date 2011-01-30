@@ -23,7 +23,6 @@
 #import "Message.h"
 #import "Conversation.h"
 
-
 @implementation NewViewController
 
 -(void)awakeFromNib {

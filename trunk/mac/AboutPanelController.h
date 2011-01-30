@@ -21,7 +21,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface AboutPanelController : NSObject {
 
 	IBOutlet NSTextField *versionField;

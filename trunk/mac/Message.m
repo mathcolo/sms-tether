@@ -25,4 +25,19 @@
 
 @synthesize content, direction, stamp;
 
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:content forKey:@"content"];
+	[coder encodeBool:direction forKey:@"direction"];
+	[coder encodeObject:stamp forKey:@"stamp"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	content = [[coder decodeObjectForKey:@"content"] retain];
+	direction = [coder decodeBoolForKey:@"direction"];
+	stamp = [[coder decodeObjectForKey:@"stamp"] retain];
+	return self;
+}
+
 @end

@@ -35,5 +35,18 @@
 	return self;
 }
 
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:messages forKey:@"messages"];
+	[coder encodeObject:contact forKey:@"contact"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	messages = [[coder decodeObjectForKey:@"messages"] retain];
+	contact = [[coder decodeObjectForKey:@"contact"] retain];
+	return self;
+}
+
 
 @end

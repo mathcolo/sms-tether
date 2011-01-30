@@ -38,6 +38,8 @@
 
 -(IBAction)initSend:(id)sender;
 
+-(void)saveMessageData;
+
 @property (nonatomic, retain) NSMutableArray *conversations;
 
 @end

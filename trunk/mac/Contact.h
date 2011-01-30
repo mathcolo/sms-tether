@@ -22,11 +22,10 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Contact : NSObject {
-
+@interface Contact : NSObject <NSCoding> {
 	NSString *number;
-	
 }
 
 @property (nonatomic, copy) NSString *number;
+
 @end

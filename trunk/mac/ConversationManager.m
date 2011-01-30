@@ -28,14 +28,28 @@
 
 - (id)init
 {
-	
-	if(self = [super init])
+	if((self = [super init]))
 	{
-		conversations = [NSMutableArray array];
-		[conversations retain];
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		
+		NSData *conversationsData = [defaults objectForKey:@"conversations"];
+		if(conversationsData)
+		{
+			NSArray *conversationsArray = [NSKeyedUnarchiver unarchiveObjectWithData:conversationsData];
+			conversations = [conversationsArray mutableCopy];
+		}
+		else conversations = [[NSMutableArray alloc] init];
 	}
 	return self;
+}
+
+-(void)saveMessageData {
+
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSData *saveData = [NSKeyedArchiver archivedDataWithRootObject:conversations];
+	[defaults setObject:saveData forKey:@"conversations"];
+	[defaults synchronize];
+	
 }
 
 -(void)processMessage:(Message*)message from:(NSString*)number {
@@ -53,7 +67,7 @@
 		}
 	}
 	
-	BOOL flag = FALSE;
+	BOOL flag = NO;
 	
 	if(c == nil)
 	{
@@ -65,14 +79,13 @@
 		[sender setNumber:number];		 
 		[newConversation setContact:sender];
 		c = newConversation;
-		flag = TRUE;
+		flag = YES;
 	}
 	
 	[[c messages] addObject:message];
 	if(flag)[conversations addObject:c];
 	
 	[tableView reloadData];
-	
 }
 
 -(NSMutableArray *)conversations {

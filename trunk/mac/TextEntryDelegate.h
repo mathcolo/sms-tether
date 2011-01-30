@@ -21,7 +21,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface TextEntryDelegate : NSObject {
 
 	IBOutlet NSTextField *inputField;
