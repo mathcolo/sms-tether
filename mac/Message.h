@@ -22,12 +22,11 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Message : NSObject {
+@interface Message : NSObject <NSCoding> {
 
 	NSString *content;
 	BOOL direction;
 	NSDate *stamp;
-	
 	
 }
 

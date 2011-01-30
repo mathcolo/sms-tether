@@ -24,11 +24,9 @@
 #import "Contact.h"
 
 
-@interface Conversation : NSObject {
-
+@interface Conversation : NSObject <NSCoding> {
 	Contact *contact;
 	NSMutableArray *messages;
-	
 }
 
 @property (nonatomic, retain) Contact *contact;

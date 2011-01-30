@@ -25,4 +25,15 @@
 
 @synthesize number;
 
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:number forKey:@"number"];
+}
+
+-(id)initWithCoder:(NSCoder *)coder
+{
+	number = [[coder decodeObjectForKey:@"number"] retain];
+	return self;
+}
+
 @end

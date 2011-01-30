@@ -47,6 +47,15 @@
 	//[self startSocket]; //Override to start the socket immediately upon launch
 }
 
+-(void)applicationWillTerminate:(NSNotification *)notification {
+
+	//TODO: Send disconnect message to device
+	
+	if(isRunning) [self startSocket]; //Stop the socket
+	
+	[manager saveMessageData];
+}
+
 -(IBAction)startSocketServer:(id)sender {
 
 	if(!isRunning)

@@ -22,7 +22,6 @@
 #import <Cocoa/Cocoa.h>
 #import "ConversationManager.h"
 
-
 @interface TableViewDelegate : NSObject <NSTableViewDelegate> {
 	
 	IBOutlet NSTableView *tableView;

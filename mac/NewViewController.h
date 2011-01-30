@@ -23,7 +23,6 @@
 #import "MAAttachedWindow.h"
 #import "ConversationManager.h"
 
-
 @interface NewViewController : NSObject {
 
 	IBOutlet NSView *view;
