@@ -82,6 +82,7 @@
 		[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 		NSString *date = [formatter stringFromDate:arrayMessage.stamp];
 		appender = [appender stringByAppendingString:[NSString stringWithFormat:@"\n<%@> %@: %@", date, header, content]];
+		[formatter release];
 	}
 	[textView setString:appender];
 }
