@@ -117,6 +117,7 @@
 	[[tableView delegate] tableViewSelectionDidChange:nil]; //A strange workaround in order for the GUI elements in the main window to reload and display the new message
 	
 	[inputField setStringValue:@""]; //Reset the message entry field
+	[[inputField delegate] controlTextDidChange:nil];
 	
 }
 
