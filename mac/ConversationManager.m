@@ -21,6 +21,7 @@
 
 #import "ConversationManager.h"
 #import "Message.h"
+#import "GrowlNotifications.h"
 
 @implementation ConversationManager
 
@@ -86,6 +87,18 @@
 	if(flag)[conversations addObject:c];
 	
 	[tableView reloadData];
+	
+	//Notify the Growl notification system
+	NSString *truncatedMessage;
+	if([[message content] length] > 35)
+	{
+		truncatedMessage = [NSString stringWithFormat:@"%@: %@...", number, [[message content] substringToIndex:34]];
+	}
+	else
+	{
+		truncatedMessage = [NSString stringWithFormat:@"%@: %@", number, [message content]];
+	}
+	[GrowlNotifications postNewMessageReceived:truncatedMessage];
 }
 
 -(NSMutableArray *)conversations {
