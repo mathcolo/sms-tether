@@ -46,9 +46,12 @@
 	if(row == -1)
 	{
 		[textView setString:@""];
+		[sendButton setEnabled:NO];
 		return;
 	}
 
+	[sendButton setEnabled:YES];
+	
 	NSString *appender = @"";
 	
 	//NSLog(@"%@", [manager.conversations description]);
