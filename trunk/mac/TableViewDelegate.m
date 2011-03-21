@@ -23,6 +23,9 @@
 #import "ConversationManager.h"
 #import "Conversation.h"
 #import "Message.h"
+#import <AddressBook/ABAddressBook.h>
+#import <AddressBook/ABPerson.h>
+#import <AddressBook/ABSearchElement.h>
 
 @implementation TableViewDelegate
 
@@ -34,6 +37,21 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
 	NSString *number = [[[manager.conversations objectAtIndex:row] contact] number];
+	
+	//Does the number string match a number in the Address Book?
+	//ABAddressBook requires dashes...
+	NSString *dashedNumber = [NSString stringWithFormat:@"%@-%@-%@",[number substringToIndex:3],[number substringWithRange:NSMakeRange(3,3)],[number substringFromIndex:6]];
+	ABAddressBook *addressBook = [ABAddressBook sharedAddressBook];
+	ABSearchElement *searchElement = [ABPerson searchElementForProperty:kABPhoneProperty label:nil key:nil value:dashedNumber comparison:kABEqual];
+	NSArray *personArray = [addressBook recordsMatchingSearchElement:searchElement];
+
+	if([personArray count] > 0) {
+		NSString *firstName = [[personArray objectAtIndex:0] valueForKey:@"First"];
+		NSString *lastName = [[personArray objectAtIndex:0] valueForKey:@"Last"];
+		NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+		number = fullName;
+	}
+	
 	if([tableView selectedRow] > -1)[self tableViewSelectionDidChange:nil]; //Strange workaround in order for the text view to be updated with new messages automatically
 	return number;
 }

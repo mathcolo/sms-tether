@@ -18,6 +18,7 @@
 		6561574812EABE1300728913 /* ConversationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6561574712EABE1300728913 /* ConversationManager.m */; };
 		6561574B12EABE1900728913 /* TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6561574A12EABE1900728913 /* TableViewDelegate.m */; };
 		65748E4612EF679E0002A7E5 /* AboutPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65748E4512EF679E0002A7E5 /* AboutPanelController.m */; };
+		6583A306133705E600B0001C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6583A305133705E600B0001C /* AddressBook.framework */; };
 		65DAC50B12EC1B7600EEB8C8 /* NewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DAC50A12EC1B7600EEB8C8 /* NewViewController.m */; };
 		65DAC50F12EC1CC900EEB8C8 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DAC50E12EC1CC900EEB8C8 /* MAAttachedWindow.m */; };
 		65E2F4FA12E3F8440073E5BE /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E2F4F912E3F8440073E5BE /* Message.m */; };
@@ -76,6 +77,7 @@
 		6561574A12EABE1900728913 /* TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewDelegate.m; sourceTree = "<group>"; };
 		65748E4412EF679E0002A7E5 /* AboutPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPanelController.h; sourceTree = "<group>"; };
 		65748E4512EF679E0002A7E5 /* AboutPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPanelController.m; sourceTree = "<group>"; };
+		6583A305133705E600B0001C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		65DAC50912EC1B7600EEB8C8 /* NewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewViewController.h; sourceTree = "<group>"; };
 		65DAC50A12EC1B7600EEB8C8 /* NewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewViewController.m; sourceTree = "<group>"; };
 		65DAC50D12EC1CC900EEB8C8 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				651C0F0E13369A5600F9A04B /* Growl.framework in Frameworks */,
+				6583A306133705E600B0001C /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +142,7 @@
 			children = (
 				651C0F0D13369A5600F9A04B /* Growl.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				6583A305133705E600B0001C /* AddressBook.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
