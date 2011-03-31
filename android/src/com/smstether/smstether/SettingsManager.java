@@ -60,6 +60,5 @@ public class SettingsManager {
 	public static void setConnected(Boolean connected) {
 		SettingsManager.connected = connected;
 	}
-
 	
 }
