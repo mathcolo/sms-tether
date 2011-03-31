@@ -23,52 +23,59 @@ package com.smstether.smstether;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 public class SMSTetherMain extends Activity {
 
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-  
-        final Button connectBtn = (Button)findViewById(R.id.connectBtn);
-        connectBtn.setOnClickListener(new View.OnClickListener() {
-        	@Override
-        	public void onClick(View v) {
-        		
-        		if(!SettingsManager.getConnected()){
-        		
-	        		EditText hostField = (EditText)findViewById(R.id.hostField);
-	        		
-	        		String hostname = hostField.getText().toString();
-	        		SettingsManager.setHostname(hostname);
-	        		
-	                Thread thread = new Thread(new SocketRunner());
-	                thread.start();
-	                
-	                SettingsManager.setConnected(true);
-	                connectBtn.setText("Disconnect");
+	//A handler to get messages from SocketRunner
+	
+	private Handler handler;
+	
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		
+		//This handler currently used for one type of message; the socket in SocketRunner no longer being open
+		handler = new Handler() {
+			@Override
+			public void handleMessage(android.os.Message msg) {
+				Log.d("SMSTether-Handler", "Handler exec");
+	        	final Button connectBtn = (Button)findViewById(R.id.connectBtn);
+	        	connectBtn.setText("Connect");
+	        }
+		};
 
-	                
-        		}
-        		else if(SettingsManager.getConnected())
-        		{
-        			//We're connected... let's disconnect
-        			SettingsManager.setWantsDisconnect(true);
-        			connectBtn.setText("Connect");
-        			
-        		}
-                
-        	 }
-        	
-        	 });
-        
-        }
-        
+		final Button connectBtn = (Button)findViewById(R.id.connectBtn);
+		connectBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
 
-    }
+				if(!SettingsManager.getConnected()){
+					EditText hostField = (EditText)findViewById(R.id.hostField);
+
+					String hostname = hostField.getText().toString();
+					SettingsManager.setHostname(hostname);
+
+					Thread thread = new Thread(new SocketRunner(handler));
+					thread.start();
+
+					SettingsManager.setConnected(true);
+					connectBtn.setText("Disconnect");
+				}
+				else if(SettingsManager.getConnected())
+				{
+					//We're connected... let's disconnect
+					SettingsManager.setWantsDisconnect(true);
+					connectBtn.setText("Connect");
+
+				}
+			}
+		});
+	}
+}
