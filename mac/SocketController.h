@@ -35,12 +35,13 @@
 	IBOutlet ConversationManager *manager;
 	IBOutlet NSWindow *mainWindow;
 	
-	IBOutlet NSButton *sendButton;
-	
+	IBOutlet NSButton *sendButton;	
 }
 
 -(void)startSocket;
 -(IBAction)startSocketServer:(id)sender;
 -(void)sendMessageOverSocket:(Message *)message withRecipient:(NSString *)recipient;
+-(void)setMainWindowMode:(int)mode;
+-(void)disconnectCompletely;
 
 @end

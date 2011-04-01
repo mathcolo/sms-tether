@@ -38,13 +38,39 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	NSString *ipAddr = [[[NSHost currentHost] addresses] objectAtIndex:1];
-	[mainWindow setTitle:[NSString stringWithFormat:@"SMS Tether - IP: %@", ipAddr]];
+	[self setMainWindowMode:0];
 
 	// Advanced options - enable the socket to contine operations even during modal dialogs, and menu browsing
 	[listenSocket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
 	
 	//[self startSocket]; //Override to start the socket immediately upon launch
+}
+
+-(void)setMainWindowMode:(int)mode {
+
+	NSString *ipAddr = [[[NSHost currentHost] addresses] objectAtIndex:1];
+	
+	switch (mode) {
+		case 0:
+			//Not started
+			[mainWindow setTitle:[NSString stringWithFormat:@"SMS Tether - Host IP: %@ - Not accepting connections", ipAddr]];
+			break;
+		case 1:
+			//Started, no device
+			[mainWindow setTitle:[NSString stringWithFormat:@"SMS Tether - Host IP: %@ - No device connected", ipAddr]];
+			break;
+		case 2:
+			//Started, device connected
+			[mainWindow setTitle:[NSString stringWithFormat:@"SMS Tether - Host IP: %@ - Device connected", ipAddr]];
+			break;
+		case 3:
+			//Waiting for client disconnect
+			[mainWindow setTitle:[NSString stringWithFormat:@"SMS Tether - Host IP: %@ - Disconnecting...", ipAddr]];
+			break;
+		default:
+			break;
+	}
+	
 }
 
 -(void)applicationWillTerminate:(NSNotification *)notification {
@@ -84,20 +110,18 @@
 		
 		NSLog(@"Server started on port %hu", [listenSocket localPort]);
 		isRunning = YES;
-
+		[self setMainWindowMode:1];
 	}
 	else
 	{
-		[listenSocket disconnect];
-
-		int i;
-		for(i = 0; i < [connectedSockets count]; i++)
-		{
-			[[connectedSockets objectAtIndex:i] disconnect];
+		if([connectedSockets count] > 0) {
+			[[connectedSockets objectAtIndex:0] writeData:[@"SERVER-L9gyYX-DISCONNECT\r\n" dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1];	
+			[self setMainWindowMode:3];
 		}
-		
-		NSLog(@"Stopped SMS receiver server");
-		isRunning = NO;
+		else {
+			[self disconnectCompletely];
+		}
+
 	}
 }
 
@@ -109,6 +133,7 @@
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	NSLog(@"Accepted client %@:%hu", host, port);
+	[self setMainWindowMode:2];
 	
 	NSString *welcomeMsg = @"ACK-L9gyYX-SERVER\r\n";
 	NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
@@ -121,10 +146,27 @@
 	[sock readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:0];
 }
 
+-(void)disconnectCompletely {
+
+	[listenSocket disconnect];
+	
+	int i;
+	for(i = 0; i < [connectedSockets count]; i++)
+	{
+		[[connectedSockets objectAtIndex:i] disconnect];
+	}
+	
+	NSLog(@"Stopped SMS receiver server");
+	isRunning = NO;
+	[self setMainWindowMode:0];
+	
+}
+
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
 	NSData *strData = [data subdataWithRange:NSMakeRange(0, [data length] - 2)];
 	NSString *msg = [[[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding] autorelease];
+
 	if(msg)
 	{
 		NSLog(@"Received message from device: %@", msg);
@@ -140,6 +182,10 @@
 			[manager processMessage:message from:recipient];
 			
 		}
+		else if([msg hasPrefix:@"CLIENT-L9gyYX-DISCONNECT"])
+		{
+			[self disconnectCompletely];
+		}
 	}
 	else
 	{
@@ -149,6 +195,7 @@
 	//Acknowledging 
 	[sock writeData:[@"ACK-L9gyYX-MSG\r\n" dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1];
 }
+
 
 -(void)sendMessageOverSocket:(Message *)message withRecipient:(NSString *)recipient {
 
@@ -185,6 +232,7 @@
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
 	NSLog(@"Client Disconnected: %@:%hu", [sock connectedHost], [sock connectedPort]);
+	[self setMainWindowMode:1];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
