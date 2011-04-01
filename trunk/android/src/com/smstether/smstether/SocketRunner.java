@@ -50,7 +50,7 @@ public class SocketRunner implements Runnable {
 
 			Log.d("SMSTether-TCPLoop", "Connecting to server at address " + serverAddr);
 			Socket socket = new Socket(serverAddr, 58149);
-
+			socket.setKeepAlive(true);
 			try {
 
 				PrintWriter out = new PrintWriter( new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
@@ -85,11 +85,22 @@ public class SocketRunner implements Runnable {
 
 					//if there's socket input
 					//Log.d("TCPLoop", "3");
+					
+					Boolean stillConnected = true;
+					
 					if (in.ready()) {
 						String s = in.readLine();
 						if ((s != null) &&  (s.length() != 0)) {
 							Log.d("SMSTether-TCPLoop", "Message received: " + s);
 							if(s.equals("ACK-L9gyYX-SERVER"))Log.d("SMSTether-TCPLoop", "Server acknowledgement received.");
+							
+							if (s.startsWith("SERVER-L9gyYX-DISCONNECT"))
+							{
+								//Server disconnected, and sent server disconnect message to phone
+								out.println("CLIENT-L9gyYX-DISCONNECT\r");
+								stillConnected = false;
+								Log.d("SMSTether-TCPLoop", "Socket server disconnecting... stillConnected marked as false");
+							}
 
 							if(s.startsWith("SEND-L9gyYX-"))
 							{
@@ -106,14 +117,7 @@ public class SocketRunner implements Runnable {
 
 					}
 					
-					Boolean stillConnected = true;
-					try {
-						socket.getOutputStream().write(0);
-					} catch (IOException e) {
-						stillConnected = false;
-					}
-
-					if(SettingsManager.getWantsDisconnect() || !stillConnected)
+					if(SettingsManager.getWantsDisconnect() || !stillConnected || !socket.isBound() || !socket.isConnected() || socket.isClosed())
 					{
 						Log.d("SMSTether-TCPLoop", "Disconnect signal received.");
 						remainConnected = false;
