@@ -22,6 +22,7 @@
 package com.smstether.smstether;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class SMSTetherMain extends Activity {
 
 					Thread thread = new Thread(new SocketRunner(handler));
 					thread.start();
+					startService(new Intent(SMSTetherMain.this.getBaseContext(),NetworkService.class));
 
 					SettingsManager.setConnected(true);
 					connectBtn.setText("Disconnect");
@@ -72,6 +74,7 @@ public class SMSTetherMain extends Activity {
 				{
 					//We're connected... let's disconnect
 					SettingsManager.setWantsDisconnect(true);
+					stopService(new Intent(SMSTetherMain.this.getBaseContext(),NetworkService.class));
 					connectBtn.setText("Connect");
 
 				}
