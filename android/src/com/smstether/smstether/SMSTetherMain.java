@@ -22,6 +22,7 @@
 package com.smstether.smstether;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,7 +64,7 @@ public class SMSTetherMain extends Activity {
 					String hostname = hostField.getText().toString();
 					SettingsManager.setHostname(hostname);
 
-					Thread thread = new Thread(new SocketRunner(handler));
+					Thread thread = new Thread(new SocketRunner(handler,SMSTetherMain.this));
 					thread.start();
 					startService(new Intent(SMSTetherMain.this.getBaseContext(),NetworkService.class));
 

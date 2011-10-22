@@ -23,13 +23,21 @@ package com.smstether.smstether;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Date;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Handler;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -37,11 +45,16 @@ import android.util.Log;
 public class SocketRunner implements Runnable {
 
 	private Handler handler;
+	private Activity mainActivity;
 	
-	public SocketRunner(Handler handler) {
+	public static final String SMS_SENT = "com.smstether.smstether.SMS_SENT_ACTION";
+	
+	public SocketRunner(Handler handler, Activity mainActivity) {
 		super();
 		this.handler = handler;
+		this.mainActivity = mainActivity;
 	}
+
 	
 	public void run() {
 		try {
@@ -88,6 +101,8 @@ public class SocketRunner implements Runnable {
 					
 					Boolean stillConnected = true;
 					
+					
+					
 					if (in.ready()) {
 						String s = in.readLine();
 						if ((s != null) &&  (s.length() != 0)) {
@@ -111,7 +126,61 @@ public class SocketRunner implements Runnable {
 								//Message is 2
 								Log.d("SMSTether-TCPLoop", "Message received: " + args[2]);
 								SmsManager sms = SmsManager.getDefault();
-								sms.sendTextMessage(args[1], null, args[2], null, null);  
+								//Intent pending = new Intent(SMS_SENT);
+								//pending.putExtra("args", args);
+								//sms.sendTextMessage(args[1], null, args[2], PendingIntent.getBroadcast(mainActivity, 0, pending, PendingIntent.FLAG_ONE_SHOT), null);
+								sms.sendTextMessage(args[1], null, args[2], null, null);
+								
+								/*
+								// Register broadcast receivers for SMS sent and delivered intents
+						        mainActivity.registerReceiver(new BroadcastReceiver() {
+						            @Override
+						            public void onReceive(Context context, Intent intent) {
+						                String message = null;
+						                boolean error = true;
+						                
+						                String[] args = intent.getStringArrayExtra("args");
+						                
+						                switch (getResultCode()) {
+							                case Activity.RESULT_OK:
+							                    message = "Message sent!";
+							                    error = false;
+							                    
+							                    */
+							                  //Add the message to the Android messaging provider after it has completed sending
+												//This might break in future releases
+												ContentValues sendMessageValues = new ContentValues();
+												sendMessageValues.put("address", args[1]);
+												sendMessageValues.put("date", new Date().getTime());
+												sendMessageValues.put("read", Integer.valueOf(1));
+												sendMessageValues.put("subject", "");
+												sendMessageValues.put("body", args[2]);
+												sendMessageValues.put("status", Integer.valueOf(-1));
+												sendMessageValues.put("type", Integer.valueOf(2));
+												mainActivity.getContentResolver().insert(Uri.parse("content://sms/outbox"), sendMessageValues);
+												/*
+							                    
+							                    break;
+							                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+							                    message = "Error.";
+							                    break;
+							                case SmsManager.RESULT_ERROR_NO_SERVICE:
+							                    message = "Error: No service.";
+							                    break;
+							                case SmsManager.RESULT_ERROR_NULL_PDU:
+							                    message = "Error: Null PDU.";
+							                    break;
+							                case SmsManager.RESULT_ERROR_RADIO_OFF:
+							                    message = "Error: Radio off.";
+							                    break;
+						                }
+						                Log.d("SMSTetherMessageCode", message);
+
+						            }
+						        }, new IntentFilter(SMS_SENT));
+								*/
+								
+								
 							}
 						}
 
